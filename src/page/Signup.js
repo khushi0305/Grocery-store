@@ -1,8 +1,11 @@
 import React, {useState} from 'react'
 import signupcart from "../pro images/signupcart.png"
 import { Link } from 'react-router-dom'
+import { BiShow, BiHide } from "react-icons/bi";
+
 const Signup = () => {
-    // const[ShowConfirmPassword, setShowConfirmPassword]= useState(false)
+    const [showPassword, setShowPassword] = useState(false);
+    const[showConfirmPassword, setShowConfirmPassword]= useState(false)
     const [data, setData] = useState({
         firstName:"",
         lastName: "",
@@ -23,6 +26,12 @@ console.log(data)
             }
         })
     }
+    const handleShowPassword = () => {
+        setShowPassword((preve) => !preve);
+      };
+      const handleShowConfirmPassword = () => {
+        setShowConfirmPassword((preve) => !preve);
+      };
     const handleSubmit = (e) => {
         e.preventDefault()
         const {firstName, lastName, email, password,confirmPassword} = data
@@ -61,13 +70,43 @@ console.log(data)
     <input type={'email'} name='email' id='email' className='mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded'
     value={data.email} onChange={handleOnChange}/>
     
-    <label htmlFor='password'>Password</label>
-    <input type={'password'} name='password' id='password' className='mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded'
-    value={data.password} onChange={handleOnChange}/>
+    <label htmlFor="password">Password</label>
+          <div className="flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              className=" w-full bg-slate-200 border-none outline-none "
+              value={data.password}
+              onChange={handleOnChange}
+            />
+            <span
+              className="flex text-xl cursor-pointer"
+              onClick={handleShowPassword}
+            >
+              {showPassword ? <BiShow /> : <BiHide />}
+            </span>
+          </div>
         
-    <label htmlFor='confirmpassword'>Confirm Password</label>
-    <input type={'password'} name='confirmpassword' id='confirmpassword' className='mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded'
-    value={data.confirmpassword} onChange={handleOnChange}/>
+        <label htmlFor="confirmpassword">Confirm Password</label>
+          <div className="flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2  focus-within:outline focus-within:outline-blue-300">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              id="confirmpassword"
+              name="confirmPassword"
+              className=" w-full bg-slate-200 border-none outline-none "
+              value={data.confirmPassword}
+              onChange={handleOnChange}
+            />
+            <span
+              className="flex text-xl cursor-pointer"
+              onClick={handleShowConfirmPassword}
+            >
+              {showConfirmPassword ? <BiShow /> : <BiHide />}
+            </span>
+          </div>
+
+         
 
     <button className='max-w-[120px] w-full m-auto bg-blue-900 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center py-1 rounded-full mt-4'>Sign Up</button>
 </form>
